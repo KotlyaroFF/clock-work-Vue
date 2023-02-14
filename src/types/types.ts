@@ -3,7 +3,7 @@ export enum Size {
   default = "default",
   lg = "lg",
 }
-export type ISize = { [K in Size]: string };
+export type ISize = { [K in Size]: string | string[] };
 
 export enum Variant {
   text = "text",
@@ -18,6 +18,7 @@ export enum Color {
   success = "success",
   error = "error",
   warning = "warning",
+  disabled = "disabled",
 }
 export type IColor = {
   [T in Variant]: {

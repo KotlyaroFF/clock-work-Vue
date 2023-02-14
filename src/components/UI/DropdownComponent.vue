@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import ButtonsComponent from "@/components/UI/ButtonComponent.vue";
-import type { ButtonHTMLAttributes } from "vue";
-import { Size } from "@/types/types";
+import type {
+  ButtonHTMLAttributes,
+  FunctionalComponent,
+  HTMLAttributes,
+  VNodeProps,
+} from "vue";
+import { Size, Variant } from "@/types/types";
 
 export interface MenuItemType {
   title: string;
@@ -13,8 +18,11 @@ interface DropdownProps {
   items: Array<MenuItemType>;
   title?: string;
   buttonAttributes?: ButtonHTMLAttributes;
-  icon?: string;
+  icon?: FunctionalComponent<HTMLAttributes & VNodeProps>;
   size?: Size;
+  disabled?: boolean;
+  loading?: boolean;
+  variant?: Variant;
 }
 
 defineProps<DropdownProps>();
@@ -30,8 +38,10 @@ const emits = defineEmits<{ (selectItem: "selectItem", id: string): void }>();
           :icon="icon"
           :title="title"
           :size="size"
+          :variant="variant"
           :button-attribute="buttonAttributes"
-          :with-icon="withIcon"
+          :disabled="disabled"
+          :loading="loading"
         />
       </MenuButton>
     </div>
