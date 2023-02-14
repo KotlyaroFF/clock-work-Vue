@@ -1,14 +1,15 @@
-<script setup lang="ts">
-import ButtonsComponent from "@/components/UI/ButtonComponent.vue";
-import { Bars3Icon } from "@heroicons/vue/20/solid";
+<script>
+import { defineComponent } from "vue";
+import UiInput from "@/components/UI/UiInput.vue";
 
-console.log("12");
+export default defineComponent({
+  components: { UiInput },
+});
 </script>
 
 <template>
-  <div class="bg-gray-100 px-8 py-4">
+  <div class="flex flex-col gap-3 bg-gray-100 px-8 py-4">
     <h1>Hallo World</h1>
-    <buttons-component size="lg" title="button" />
-    <buttons-component :icon="Bars3Icon" variant="text" title="button" />
+    <ui-input />
   </div>
 </template>

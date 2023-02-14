@@ -1,13 +1,14 @@
-import type { IColor } from "@/types/types";
-import { Color, Variant } from "@/types/types";
+import type { IColor } from "@/types/themeTypes";
+import { Color, Variant } from "@/types/themeTypes";
 
 export const palette: IColor = {
   [Variant.default]: {
     [Color.primary]: "bg-amber-400 text-gray-800",
     [Color.secondary]: "",
-    [Color.error]: "",
+    [Color.error]: "bg-red-300 border-2 border-red-300",
     [Color.success]: "",
-    [Color.warning]: "",
+    [Color.warning]: "bg-amber-200 border-2 border-amber-200",
+    [Color.disabled]: "bg-gray-300 text-gray-400 disable:hover:opacity-80",
   },
   [Variant.text]: {
     [Color.primary]: "bg-inherit text-gray-100",
@@ -15,12 +16,14 @@ export const palette: IColor = {
     [Color.error]: "",
     [Color.success]: "",
     [Color.warning]: "",
+    [Color.disabled]: "bg-gray-200 text-gray-400",
   },
   [Variant.outline]: {
     [Color.primary]: "bg-amber-400 text-gray-800",
     [Color.secondary]: "",
     [Color.error]: "",
-    [Color.success]: "",
+    [Color.success]: "bg-green-100 border-2 border-green-500",
     [Color.warning]: "",
+    [Color.disabled]: "bg-gray-200 text-gray-400",
   },
 };

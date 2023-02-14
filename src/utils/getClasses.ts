@@ -1,35 +1,58 @@
-import type { Variant, Size, Color } from "@/types/types";
+import type { Variant, Size, Color } from "@/types/themeTypes";
 import { palette } from "@/assets/assets";
+import * as componentImport from "../assets/index";
+import { ref } from "vue";
 
 interface GetClassesProps {
   component: string;
   variant: Variant;
-  size: Size;
+  size?: Size;
   disabled?: boolean;
   color: Color;
+  isIcon?: boolean;
+  loading?: boolean;
 }
+export interface GetClassesResult {
+  iconClasses: string[];
+  titleClasses: string[];
+  componentClasses: string[];
+}
+type IGetClasses = (props: GetClassesProps) => GetClassesResult;
 
-const getClasses = async ({
+const getClasses: IGetClasses = ({
   color,
   component,
   variant,
   size,
   disabled,
-}: GetClassesProps) => {
-  const Import = await import(`../assets/${component}.ts`);
-  const buttonClasses: string[] = [];
+  isIcon,
+  loading,
+}) => {
+  const icon = componentImport[`${component}Icon`];
+  const title = componentImport[`${component}Title`];
+
+  const refDisabled = ref(disabled || loading);
+
+  const componentClasses: string[] = [];
   const iconClasses: string[] = [];
   const titleClasses: string[] = [];
-
-  const iconSize = Import[`${component}IconSize`];
-  const titleSize = Import[`${component}TitleSize`];
-
-  buttonClasses.push(palette[variant][color]);
-  console.log(buttonClasses);
+  componentClasses.push(
+    refDisabled.value ? palette[variant].disabled : palette[variant][color]
+  );
+  icon.size && iconClasses.push(icon.size[size]);
+  icon[color] && iconClasses.push(icon[color].classes[variant]);
+  title?.size &&
+    titleClasses.push(
+      isIcon
+        ? title.size[size]
+        : title.size[size].filter(
+            (element: string) => !element.includes("ml" || "mr")
+          )
+    );
   return {
     iconClasses,
     titleClasses,
-    buttonClasses,
+    componentClasses,
   };
 };
 
