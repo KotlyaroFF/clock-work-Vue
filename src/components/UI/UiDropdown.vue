@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
-import ButtonsComponent from "@/components/UI/ButtonComponent.vue";
 import type {
   ButtonHTMLAttributes,
   FunctionalComponent,
   HTMLAttributes,
   VNodeProps,
 } from "vue";
-import { Size, Variant } from "@/types/types";
+import { Size, Variant } from "@/types/themeTypes";
+import UiButton from "@/components/UI/UiButton.vue";
 
 export interface MenuItemType {
   title: string;
@@ -34,7 +34,7 @@ const emits = defineEmits<{ (selectItem: "selectItem", id: string): void }>();
   <Menu as="div" class="relative inline-block text-left">
     <div>
       <MenuButton tabindex="-1">
-        <buttons-component
+        <ui-button
           :icon="icon"
           :title="title"
           :size="size"

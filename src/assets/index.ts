@@ -1,3 +1,4 @@
-import { buttonIconSize, buttonTitleSize } from "./button";
+import { buttonTitle, buttonIcon } from "./button";
+import { alertIcon } from "@/assets/alert";
 
-export { buttonTitleSize, buttonIconSize };
+export { buttonTitle, buttonIcon, alertIcon };

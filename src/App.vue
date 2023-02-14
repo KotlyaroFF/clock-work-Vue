@@ -3,22 +3,41 @@ import HeaderComponent from "./components/Header/HeaderComponent.vue";
 import MainComponent from "./components/Main/MainComponent.vue";
 import { toRefs } from "vue";
 import { store } from "./store/store";
+import UiAlert from "@/components/UI/UiAlert.vue";
+import UiButton from "@/components/UI/UiButton.vue";
 
 const { alert } = toRefs(store);
+console.log(alert);
 </script>
 
 <template>
   <header-component class="w-full" />
 
   <main-component class="h-full" />
-  <!--      <v-alert-->
-  <!--        v-if="alert.isOpen"-->
-  <!--        :type="alert.type"-->
-  <!--        :text="alert.text"-->
-  <!--        class="m-4"-->
-  <!--        position="fixed"-->
-  <!--        location="bottom right"-->
-  <!--      />-->
+  <div class="bottom-0 p-2 right-0 fixed flex flex-col gap-2 lg:w-1/5">
+    <ui-alert
+      title="Alert"
+      color="error"
+      closed
+      with-icon
+      text="You are have error!"
+    />
+    <ui-alert
+      title="Success"
+      variant="outline"
+      with-icon
+      text="Congratulation!"
+      another-text="Like as"
+    >
+      <ui-button title="Roll back" class="w-max order-last" />
+    </ui-alert>
+    <ui-alert
+      title="Warning"
+      color="warning"
+      with-icon
+      text="Same think wrong!"
+    />
+  </div>
 </template>
 
 <style>
