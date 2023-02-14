@@ -1,3 +1,5 @@
+import type { FunctionalComponent, HTMLAttributes, VNodeProps } from "vue";
+
 export enum Size {
   sm = "sm",
   default = "default",
@@ -10,8 +12,6 @@ export enum Variant {
   default = "default",
   outline = "outline",
 }
-export type IVariant = { [K in Variant]: string };
-
 export enum Color {
   primary = "primary",
   secondary = "secondary",
@@ -22,6 +22,12 @@ export enum Color {
 }
 export type IColor = {
   [T in Variant]: {
-    [K in Color]: string;
+    [K in Color]: string | string[];
+  };
+};
+export type IAlertColor = {
+  [K in Color]: {
+    icon: FunctionalComponent<HTMLAttributes & VNodeProps>;
+    classes: { [V in Variant]: string };
   };
 };

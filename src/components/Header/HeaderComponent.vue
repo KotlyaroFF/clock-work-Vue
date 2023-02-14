@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import LogoComponent from "./LogoComponent.vue";
-import DropdownComponent from "@/components/UI/DropdownComponent.vue";
-import type { MenuItemType } from "../UI/DropdownComponent.vue";
+import type { MenuItemType } from "../UI/UiDropdown.vue";
 import { Bars3Icon } from "@heroicons/vue/20/solid";
+import UiDropdown from "@/components/UI/UiDropdown.vue";
 const selectItem = (id: string): void => {
   console.log("select", id);
 };
@@ -18,7 +18,7 @@ const menuItems: Array<MenuItemType> = [
   >
     <logo-component class="py-2" />
     <div class="flex gap-4">
-      <dropdown-component
+      <ui-dropdown
         @selectItem="selectItem"
         :items="menuItems"
         :icon="Bars3Icon"

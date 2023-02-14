@@ -8,9 +8,9 @@ import type {
 import { toRefs, watchEffect } from "vue";
 import type { GetClassesResult } from "@/utils/getClasses";
 
-import { Color, Size, Variant } from "@/types/types";
+import { Color, Size, Variant } from "@/types/themeTypes";
 import getClasses from "@/utils/getClasses";
-import SpinnerComponent from "@/components/UI/SpinnerComponent.vue";
+import UiSpinner from "@/components/UI/UiSpinner.vue";
 
 export interface ButtonProps {
   title?: string;
@@ -33,12 +33,10 @@ const props = withDefaults(defineProps<ButtonProps>(), {
 
 const { title, size, icon, disabled, variant, color, loading } = toRefs(props);
 
-const buttonClassesDefault: string[] = [
+const defaultClasses: string[] = [
   "py-1.5 flex w-full items-center hover:opacity-80 relative shadow-sm justify-center ",
 ];
-buttonClassesDefault.push(
-  title?.value ? "rounded-lg px-4" : `rounded-3xl px-2`
-);
+defaultClasses.push(title?.value ? "rounded-lg px-4" : `rounded-3xl px-2`);
 const preparedTitle =
   title?.value !== undefined &&
   title.value.charAt(0).toUpperCase() + title.value.slice(1);
@@ -51,7 +49,7 @@ watchEffect(() => {
     variant: variant.value,
     disabled: disabled.value,
     color: color.value,
-    icon: !!icon?.value,
+    isIcon: !!icon?.value,
     loading: loading.value,
   });
 });
@@ -61,11 +59,11 @@ watchEffect(() => {
   <button
     :disabled="disabled || loading"
     v-bind="buttonAttributes"
-    :class="classes.buttonClasses.concat(buttonClassesDefault).join(' ')"
+    :class="defaultClasses.concat(classes.componentClasses).join(' ')"
   >
     <component v-if="icon" :class="classes.iconClasses" :is="icon" />
     <span :class="classes.titleClasses" v-if="title">{{ preparedTitle }}</span>
-    <spinner-component
+    <ui-spinner
       v-if="loading"
       class="w-6 self-center absolute mx-auto text-gray-100 animate-spin fill-gray-700"
     />

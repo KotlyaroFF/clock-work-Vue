@@ -1,4 +1,4 @@
-import type { Variant, Size, Color } from "@/types/types";
+import type { Variant, Size, Color } from "@/types/themeTypes";
 import { palette } from "@/assets/assets";
 import * as componentImport from "../assets/index";
 import { ref } from "vue";
@@ -6,16 +6,16 @@ import { ref } from "vue";
 interface GetClassesProps {
   component: string;
   variant: Variant;
-  size: Size;
-  disabled: boolean;
+  size?: Size;
+  disabled?: boolean;
   color: Color;
-  icon: boolean;
-  loading: boolean;
+  isIcon?: boolean;
+  loading?: boolean;
 }
 export interface GetClassesResult {
   iconClasses: string[];
   titleClasses: string[];
-  buttonClasses: string[];
+  componentClasses: string[];
 }
 type IGetClasses = (props: GetClassesProps) => GetClassesResult;
 
@@ -25,38 +25,34 @@ const getClasses: IGetClasses = ({
   variant,
   size,
   disabled,
-  icon,
+  isIcon,
   loading,
 }) => {
-  // @ts-ignore
-  const iconSize = componentImport[`${component}IconSize`];
-  // @ts-ignore
-  const titleSize = componentImport[`${component}TitleSize`];
+  const icon = componentImport[`${component}Icon`];
+  const title = componentImport[`${component}Title`];
 
   const refDisabled = ref(disabled || loading);
 
-  const buttonClasses: string[] = [];
+  const componentClasses: string[] = [];
   const iconClasses: string[] = [];
   const titleClasses: string[] = [];
-
-  buttonClasses.push(
+  componentClasses.push(
     refDisabled.value ? palette[variant].disabled : palette[variant][color]
   );
-
-  iconClasses.push(iconSize[size]);
-  titleClasses.push(
-    icon
-      ? titleSize[size]
-      : titleSize[size].filter(
-          (element: string) => !element.includes("ml" || "mr")
-        )
-  );
-
-  console.log(buttonClasses);
+  icon.size && iconClasses.push(icon.size[size]);
+  icon[color] && iconClasses.push(icon[color].classes[variant]);
+  title?.size &&
+    titleClasses.push(
+      isIcon
+        ? title.size[size]
+        : title.size[size].filter(
+            (element: string) => !element.includes("ml" || "mr")
+          )
+    );
   return {
     iconClasses,
     titleClasses,
-    buttonClasses,
+    componentClasses,
   };
 };
 
