@@ -28,7 +28,9 @@ const getClasses: IGetClasses = ({
   isIcon,
   loading,
 }) => {
+  // @ts-ignore
   const icon = componentImport[`${component}Icon`];
+  // @ts-ignore
   const title = componentImport[`${component}Title`];
 
   const refDisabled = ref(disabled || loading);
@@ -45,10 +47,11 @@ const getClasses: IGetClasses = ({
     titleClasses.push(
       isIcon
         ? title.size[size]
-        : title.size[size].filter(
-            (element: string) => !element.includes("ml" || "mr")
-          )
+        : title.size[size]
+            .split(" ")
+            .filter((element: string) => !element.includes("ml" || "mr"))
     );
+
   return {
     iconClasses,
     titleClasses,

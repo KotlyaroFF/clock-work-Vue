@@ -5,7 +5,7 @@ export enum Size {
   default = "default",
   lg = "lg",
 }
-export type ISize = { [K in Size]: string | string[] };
+export type ISize = { [K in Size]: string };
 
 export enum Variant {
   text = "text",
@@ -18,16 +18,17 @@ export enum Color {
   success = "success",
   error = "error",
   warning = "warning",
+  inform = "inform",
   disabled = "disabled",
 }
 export type IColor = {
   [T in Variant]: {
-    [K in Color]: string | string[];
+    [K in Color]: string;
   };
 };
 export type IAlertColor = {
   [K in Color]: {
     icon: FunctionalComponent<HTMLAttributes & VNodeProps>;
-    classes: { [V in Variant]: string };
+    classes: { [T in Variant]: string };
   };
 };
