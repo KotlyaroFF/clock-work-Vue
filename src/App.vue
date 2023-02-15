@@ -15,28 +15,18 @@ console.log(alert);
 
   <main-component class="h-full" />
   <div class="bottom-0 p-2 right-0 fixed flex flex-col gap-2 lg:w-1/5">
-    <ui-alert
-      title="Alert"
-      color="error"
-      closed
-      with-icon
-      text="You are have error!"
-    />
+    <ui-alert title="Alert" color="error" closed text="You are have error!" />
     <ui-alert
       title="Success"
+      color="success"
       variant="outline"
-      with-icon
       text="Congratulation!"
       another-text="Like as"
     >
       <ui-button title="Roll back" class="w-max order-last" />
     </ui-alert>
-    <ui-alert
-      title="Warning"
-      color="warning"
-      with-icon
-      text="Same think wrong!"
-    />
+    <ui-alert title="Warning" color="warning" text="Same think wrong!" />
+    <ui-alert title="Information" color="inform" text="We use a cookie" />
   </div>
 </template>
 

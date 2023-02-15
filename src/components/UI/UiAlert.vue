@@ -10,17 +10,18 @@ export interface AlertProps {
   title: string;
   text?: string;
   anotherText?: string;
-  withIcon?: boolean;
+  noneIcon?: boolean;
   variant?: Variant;
   color?: Color;
   closed?: boolean;
 }
 const props = withDefaults(defineProps<AlertProps>(), {
   variant: Variant.default,
-  color: Color.success,
+  color: Color.inform,
+  noneIcon: false,
 });
 const defaultClasses = ["p-4 shadow-lg z-20 rounded-lg"];
-const { title, withIcon, variant, color, text, anotherText } = toRefs(props);
+const { title, noneIcon, variant, color, text, anotherText } = toRefs(props);
 let classes: GetClassesResult;
 const icon = ref(alertIcon[color.value].icon);
 watchEffect(() => {
@@ -28,9 +29,10 @@ watchEffect(() => {
     component: "alert",
     variant: variant.value,
     color: color.value,
-    isIcon: withIcon?.value,
+    isIcon: !noneIcon.value,
   });
 });
+
 const defaultIconClasses = ["h-10 w-10 lg:h-16 lg:w-16 self-center"];
 const defaultTitleClasses = ["text-2xl font-bold mb-1"];
 </script>
@@ -40,7 +42,7 @@ const defaultTitleClasses = ["text-2xl font-bold mb-1"];
       <component
         :is="icon"
         :class="defaultIconClasses.concat(classes.iconClasses).join(' ')"
-        v-if="withIcon"
+        v-if="!noneIcon"
       />
       <div class="flex flex-col gap-2 w-full">
         <div class="flex justify-between">
