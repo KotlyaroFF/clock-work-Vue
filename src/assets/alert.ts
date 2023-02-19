@@ -7,6 +7,10 @@ import {
   InformationCircleIcon,
 } from "@heroicons/vue/20/solid";
 
+export const alertSettings = {
+  timeout: 3000,
+};
+
 export const alertIcon: IAlertColor = {
   [Color.error]: {
     icon: ExclamationCircleIcon,
@@ -20,7 +24,7 @@ export const alertIcon: IAlertColor = {
     icon: CheckBadgeIcon,
     classes: {
       [Variant.outline]: "text-green-700",
-      [Variant.default]: "",
+      [Variant.default]: "text-green-800",
       [Variant.text]: "",
     },
   },
