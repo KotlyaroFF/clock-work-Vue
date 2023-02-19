@@ -6,7 +6,7 @@ import type { GetClassesResult } from "@/utils/getClasses";
 import getClasses from "@/utils/getClasses";
 import { alertIcon } from "@/assets/alert";
 
-export interface AlertProps {
+export type AlertProps = {
   title: string;
   text?: string;
   anotherText?: string;
@@ -14,14 +14,18 @@ export interface AlertProps {
   variant?: Variant;
   color?: Color;
   closed?: boolean;
-}
+  id: string;
+};
 const props = withDefaults(defineProps<AlertProps>(), {
   variant: Variant.default,
   color: Color.inform,
   noneIcon: false,
 });
 const defaultClasses = ["p-4 shadow-lg z-20 rounded-lg"];
-const { title, noneIcon, variant, color, text, anotherText } = toRefs(props);
+const defaultIconClasses = ["h-10 w-10 lg:h-16 lg:w-16 self-center"];
+const defaultTitleClasses = ["text-2xl font-bold"];
+const { title, noneIcon, variant, color, text, anotherText, id } =
+  toRefs(props);
 let classes: GetClassesResult;
 const icon = ref(alertIcon[color.value].icon);
 watchEffect(() => {
@@ -32,9 +36,7 @@ watchEffect(() => {
     isIcon: !noneIcon.value,
   });
 });
-
-const defaultIconClasses = ["h-10 w-10 lg:h-16 lg:w-16 self-center"];
-const defaultTitleClasses = ["text-2xl font-bold mb-1"];
+const emits = defineEmits<{ (closeAlert: "closeAlert", id: string): void }>();
 </script>
 <template>
   <section :class="defaultClasses.concat(classes.componentClasses).join(' ')">
@@ -47,18 +49,23 @@ const defaultTitleClasses = ["text-2xl font-bold mb-1"];
       <div class="flex flex-col gap-2 w-full">
         <div class="flex justify-between">
           <button v-if="closed" class="w-4 h-4 ml-2 self-center order-last">
-            <component :is="XMarkIcon" class="hover:text-gray-600" />
+            <component
+              :is="XMarkIcon"
+              @click="emits('closeAlert', id)"
+              class="hover:text-gray-600"
+            />
           </button>
           <p :class="defaultTitleClasses.concat(classes.iconClasses.join(' '))">
             {{ title }}
           </p>
         </div>
-        <div class="flex flex-col gap-2">
+        <div v-if="text" class="flex flex-col gap-2">
           <p>
             {{ text }}
           </p>
           <div class="flex justify-between items-center">
-            <slot />
+            <div class="w-max order-last"><slot /></div>
+
             <p class="text-sm text-gray-700 mr-2 min-w-max">
               {{ anotherText }}
             </p>
