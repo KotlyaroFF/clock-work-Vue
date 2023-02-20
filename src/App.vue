@@ -6,7 +6,6 @@ import AlertsWrapper from "@/components/AlertsWrapper.vue";
 
 <template>
   <header-component class="w-full" />
-
   <main-component class="h-full" />
   <alerts-wrapper />
 </template>

@@ -8,7 +8,7 @@ import getUniqueId from "@/utils/getUniqueId";
 const { alerts } = toRefs(store);
 const addAlert = () => {
   return alerts.value.push({
-    id: getUniqueId(),
+    id: getUniqueId(alerts.value),
     props: {
       title: "Alert",
       color: "error",
