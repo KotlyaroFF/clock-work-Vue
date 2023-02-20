@@ -12,7 +12,7 @@ export const palette: IColor = {
     [Color.disabled]: "bg-gray-300 text-gray-400 disable:hover:opacity-80",
   },
   [Variant.text]: {
-    [Color.primary]: "bg-inherit text-gray-100",
+    [Color.primary]: "bg-inherit text-gray-900",
     [Color.secondary]: "",
     [Color.error]: "",
     [Color.success]: "",
@@ -21,7 +21,7 @@ export const palette: IColor = {
     [Color.disabled]: "bg-gray-200 text-gray-400",
   },
   [Variant.outline]: {
-    [Color.primary]: "bg-amber-400 text-gray-800",
+    [Color.primary]: "bg-inherit border-2 border-gray-300 text-gray-800",
     [Color.secondary]: "",
     [Color.error]: "",
     [Color.success]: "bg-green-100 border-2 border-green-500",

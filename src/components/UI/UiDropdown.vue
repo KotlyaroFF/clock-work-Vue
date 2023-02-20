@@ -12,6 +12,8 @@ import UiButton from "@/components/UI/UiButton.vue";
 export interface MenuItemType {
   title: string;
   id: string;
+  disabled?: boolean;
+  invisible?: boolean;
 }
 
 interface DropdownProps {
@@ -57,23 +59,20 @@ const emits = defineEmits<{ (selectItem: "selectItem", id: string): void }>();
       <MenuItems
         class="absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
       >
-        <div
-          class="py-1"
-          v-for="item in items"
-          :key="item.id"
-          :value="item.title"
-        >
-          <MenuItem v-slot="{ active }">
-            <button
-              @click="emits('selectItem', item.id)"
-              :class="[
-                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                'block px-4 w-full text-start py-2 text-sm',
-              ]"
-            >
-              {{ item.title }}
-            </button>
-          </MenuItem>
+        <div v-for="item in items" :key="item.id" :value="item.title">
+          <div class="py-1" v-if="!item.invisible">
+            <MenuItem :disabled="item.disabled" v-slot="{ active }">
+              <button
+                @click="emits('selectItem', item.id)"
+                :class="[
+                  active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                  'block px-4 w-full text-start py-2 text-sm',
+                ]"
+              >
+                {{ item.title }}
+              </button>
+            </MenuItem>
+          </div>
         </div>
       </MenuItems>
     </transition>
